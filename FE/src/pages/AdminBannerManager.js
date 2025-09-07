@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import ImageEditModal from '../components/ImageEditModal';
 
-const API = 'http://localhost:5000/api/banner';
-const UPLOAD_API = 'http://localhost:5000/api/gallery/upload'; // dùng chung API upload ảnh
+const API = `${process.env.REACT_APP_API_URL}/api/banner`;
+const UPLOAD_API = `${process.env.REACT_APP_API_URL}/api/gallery/upload`; // dùng chung API upload ảnh
 
 const AdminBannerManager = () => {
   const [banners, setBanners] = useState([]);

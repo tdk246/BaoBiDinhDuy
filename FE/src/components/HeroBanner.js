@@ -9,7 +9,7 @@ const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-  fetch('http://localhost:5000/api/banner')
+  fetch(`${process.env.REACT_APP_API_URL}/api/banner`)
       .then(res => res.json())
       .then(data => {
         // Nếu key không phải 'img', chuyển về đúng định dạng

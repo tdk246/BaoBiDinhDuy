@@ -5,7 +5,7 @@ const Gallery = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/gallery")
+  fetch(`${process.env.REACT_APP_API_URL}/api/gallery`)
       .then((res) => res.json())
       .then((data) => setImages(data))
       .catch(() =>
