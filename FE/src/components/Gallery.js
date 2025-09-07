@@ -10,14 +10,14 @@ const Gallery = () => {
       .then((data) => setImages(data))
       .catch(() =>
         setImages([
-          { img: "/img/carton.jpg" },
-          { img: "/img/carton2.jpg" },
-          { img: "/img/carton3.jpg" },
-          { img: "/img/carton4.jpg" },
-          { img: "/img/bg_1.jpeg" },
-          { img: "/img/carton.jpg" },
-          { img: "/img/carton2.jpg" },
-          { img: "/img/bg_1.jpeg" },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton2.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton3.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton4.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/bg_1.jpeg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/carton2.jpg` },
+          { img: `${process.env.REACT_APP_API_URL}/img/bg_1.jpeg` },
         ])
       );
   }, []);
