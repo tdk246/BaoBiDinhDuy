@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import ImageEditModal from '../components/ImageEditModal';
 
-const API = `${process.env.REACT_APP_API_URL}/api/banner`;
-const UPLOAD_API = `${process.env.REACT_APP_API_URL}/api/gallery/upload`; // dùng chung API upload ảnh
+const API_BASE = process.env.REACT_APP_API_URL || window.location.origin;
+const API = `${API_BASE}/api/banner`;
+const UPLOAD_API = `${API_BASE}/api/gallery/upload`; // dùng chung API upload ảnh
 
 const AdminBannerManager = () => {
   const [banners, setBanners] = useState([]);
@@ -68,8 +69,10 @@ const AdminBannerManager = () => {
     setShowEditModal(true);
   };
 
-  const handleDelete = async id => {
-    await fetch(`${API}/${id}`, { method: 'DELETE' });
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    await fetch(`${API}/${deleteId}`, { method: 'DELETE' });
+    setDeleteId(null);
     fetchBanners();
   };
 

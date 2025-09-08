@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
-const API = `${process.env.REACT_APP_API_URL}/api/news`;
+const API_BASE = process.env.REACT_APP_API_URL || window.location.origin;
+const API = `${API_BASE}/api/news`;
 
 const AdminNewsManager = () => {
   const [news, setNews] = useState([]);
