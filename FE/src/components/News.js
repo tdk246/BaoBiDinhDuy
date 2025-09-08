@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 const News = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/api/news`)
+  const API_BASE = process.env.REACT_APP_API_URL || window.location.origin;
+  fetch(`${API_BASE}/api/news`)
       .then(res => res.json())
       .then(data => { setNews(data); setLoading(false); })
       .catch(() => { setNews([]); setLoading(false); });
@@ -21,7 +21,7 @@ const News = () => {
             news.length ? news.map((item, idx) => (
               <div key={idx} className="bg-gray-100 p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold mb-2 text-blue-700">{item.title}</h3>
-                <p className="text-gray-700 mb-2">{item.summary}</p>
+                <p className="text-gray-700 mb-2 whitespace-pre-wrap">{item.summary}</p>
                 <div className="text-xs text-gray-500 mb-2">Ngày cập nhật: {(item.updatedAt || item.createdAt) ? new Date(item.updatedAt || item.createdAt).toLocaleString('vi-VN') : ''}</div>
                 <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Xem chi tiết</a>
               </div>
