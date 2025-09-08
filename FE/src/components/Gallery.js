@@ -5,19 +5,20 @@ const Gallery = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/api/gallery`)
+  const API_BASE = process.env.REACT_APP_API_URL || window.location.origin;
+  fetch(`${API_BASE}/api/gallery`)
       .then((res) => res.json())
       .then((data) => setImages(data))
       .catch(() =>
         setImages([
-          { img: `${process.env.REACT_APP_API_URL}/img/carton.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/carton2.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/carton3.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/carton4.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/bg_1.jpeg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/carton.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/carton2.jpg` },
-          { img: `${process.env.REACT_APP_API_URL}/img/bg_1.jpeg` },
+          { img: `${API_BASE}/img/carton.jpg` },
+          { img: `${API_BASE}/img/carton2.jpg` },
+          { img: `${API_BASE}/img/carton3.jpg` },
+          { img: `${API_BASE}/img/carton4.jpg` },
+          { img: `${API_BASE}/img/bg_1.jpeg` },
+          { img: `${API_BASE}/img/carton.jpg` },
+          { img: `${API_BASE}/img/carton2.jpg` },
+          { img: `${API_BASE}/img/bg_1.jpeg` },
         ])
       );
   }, []);

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import ImageEditModal from '../components/ImageEditModal';
 
-const API = `${process.env.REACT_APP_API_URL}/api/gallery`;
-const UPLOAD_API = `${process.env.REACT_APP_API_URL}/api/gallery/upload`;
+const API_BASE = process.env.REACT_APP_API_URL || window.location.origin;
+const API = `${API_BASE}/api/gallery`;
+const UPLOAD_API = `${API_BASE}/api/gallery/upload`;
 
 const AdminGalleryManager = () => {
   const [images, setImages] = useState([]);
