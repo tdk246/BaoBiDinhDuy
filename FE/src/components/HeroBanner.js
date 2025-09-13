@@ -1,61 +1,133 @@
-import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-import banner1 from '../assets/carton.jpg';
-import banner2 from '../assets/bg_1.jpeg';
-import banner3 from '../assets/carton2.jpg';
+"use client"
+
+import { useEffect, useState } from "react"
+import { ArrowRight, Phone, Leaf, Award, Users } from "lucide-react"
 
 const HeroBanner = () => {
-  const [banners, setBanners] = useState([]);
-  const [current, setCurrent] = useState(0);
+  const [banners, setBanners] = useState([])
+  const [current, setCurrent] = useState(0)
 
   useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/api/banner`)
-      .then(res => res.json())
-      .then(data => {
-        // Nếu key không phải 'img', chuyển về đúng định dạng
-        let bannersData = data;
-        if (Array.isArray(data) && data.length && !('img' in data[0])) {
-          bannersData = data.map(item => ({img: item.img || item.url || item.image || ''}));
+    const API_BASE = process.env.REACT_APP_API_URL || window.location.origin
+
+    fetch(`${API_BASE}/api/banner`)
+      .then((res) => res.json())
+      .then((data) => {
+        let bannersData = data
+        // Chuẩn hoá key về { img: ... }
+        if (Array.isArray(data) && data.length && !("img" in data[0])) {
+          bannersData = data.map((item) => ({
+            img: item.img || item.url || item.image || "",
+          }))
         }
-        setBanners(bannersData);
+        setBanners(bannersData)
       })
       .catch(() => {
+        // fallback ảnh local nếu API fail
         const fallback = [
-          {img: banner1},
-          {img: banner2},
-          {img: banner3}
-        ];
-        setBanners(fallback);
-      });
-  }, []);
+          { img: `${API_BASE}/img/carton.jpg` },
+          { img: `${API_BASE}/img/bg_1.jpeg` },
+          { img: `${API_BASE}/img/carton2.jpg` },
+        ]
+        setBanners(fallback)
+      })
+  }, [])
 
   useEffect(() => {
+    if (banners.length === 0) return
     const timer = setInterval(() => {
-      setCurrent(c => (c + 1) % banners.length);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, [banners]);
+      setCurrent((c) => (c + 1) % banners.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [banners])
 
-  if (!banners.length) return null;
+  if (!banners.length) return null
 
   return (
-    <section id="home" className="relative">
-      <div className="slides-wrapper relative w-full h-[650px] overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center">
+      {/* Background slideshow */}
+      <div className="absolute inset-0 overflow-hidden">
         {banners.map((banner, idx) => (
-          <div key={idx} className={`slide absolute top-0 left-0 w-full h-full transition-opacity duration-700 ${current===idx?'opacity-100 z-10':'opacity-0 z-0'}`}>
-            <img src={banner.img} alt={`Banner ${idx+1}`} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10"></div>
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              current === idx ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={banner.img || "/placeholder.svg"}
+              alt={`Banner ${idx + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
           </div>
         ))}
-        {/* Nội dung luôn hiển thị phía trên banner, không bị che bởi slide */}
-  <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white pointer-events-none z-20 mt-32">
-          <h2 className="text-4xl font-bold mb-4 drop-shadow-lg">Giải Pháp Bao Bì Tinh Tế Cho Tương Lai</h2>
-          <p className="text-lg mb-8 drop-shadow">Chúng tôi cung cấp bao bì bền vững, chất lượng cao nhằm bảo vệ sản phẩm của bạn và bảo vệ môi trường.</p>
-          <a href="https://www.facebook.com/baobidinhduy" target="_blank" className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg font-semibold transform hover:scale-110 transition duration-300 animate-bounce-slow pointer-events-auto">Liên Hệ Ngay: 0913 990 405</a>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 lg:px-8">
+        <div className="max-w-4xl">
+          <div className="animate-fade-in-up">
+            <div className="flex items-center space-x-2 mb-6">
+              <Leaf className="w-6 h-6 text-secondary" />
+              <span className="text-secondary font-semibold text-sm uppercase tracking-wider">
+                Bao Bì Thân Thiện Môi Trường
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              Giải Pháp Bao Bì
+              <span className="block text-secondary">Tinh Tế Cho Tương Lai</span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
+              Chúng tôi cung cấp bao bì bền vững, chất lượng cao nhằm bảo vệ sản phẩm của bạn và bảo vệ môi trường.
+            </p>
+
+            <div className="flex flex-wrap gap-6 mb-10">
+              <div className="flex items-center space-x-2 text-white">
+                <Award className="w-5 h-5 text-secondary" />
+                <span className="font-medium">20+ Năm Kinh Nghiệm</span>
+              </div>
+              <div className="flex items-center space-x-2 text-white">
+                <Leaf className="w-5 h-5 text-secondary" />
+                <span className="font-medium">100% Thân Thiện Môi Trường</span>
+              </div>
+              <div className="flex items-center space-x-2 text-white">
+                <Users className="w-5 h-5 text-secondary" />
+                <span className="font-medium">1000+ Khách Hàng Tin Tưởng</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="tel:0913990405"
+                className="group inline-flex items-center justify-center px-8 py-4 bg-secondary hover:bg-secondary/90 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                Liên Hệ Ngay: 0913 990 405
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all duration-300"
+              >
+                Xem Dịch Vụ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default HeroBanner;
+export default HeroBanner

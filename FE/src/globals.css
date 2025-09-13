@@ -1,0 +1,23 @@
+:root {
+  --background: #ffffff;
+  --foreground: #475569;
+  --primary: #059669;
+  --secondary: #10b981;
+  --accent: #10b981;
+  --destructive: #dc2626;
+  --border: #e5e7eb;
+  --input: #ffffff;
+  --ring: rgba(5, 150, 105, 0.5);
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --primary: #10b981;
+  --secondary: #059669;
+  --accent: #10b981;
+  --destructive: #ef4444;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: rgba(16, 185, 129, 0.5);
+}

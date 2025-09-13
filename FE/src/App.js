@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import './App.css';
 
 function App() {
   const [adminToken, setAdminToken] = useState(null);
@@ -24,16 +25,18 @@ function App() {
     return <AdminDashboard token={adminToken} />;
   }
 
-  return (
+   return (
     <div className="App">
       <Header />
       <main className="pt-16">
         <HeroBanner />
-        <About />
-        <Services />
-        <Gallery />
-        <News />
-        <Contact />
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
+          <About />
+          <Services />
+          <Gallery />
+          <News />
+          <Contact />
+        </div>
       </main>
       <Footer />
     </div>
